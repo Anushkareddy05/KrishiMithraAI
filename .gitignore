@@ -17,3 +17,4 @@ database/
 # OS files
 .DS_Store
 Thumbs.db
+models/yield_model.pkl
