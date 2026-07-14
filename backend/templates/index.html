@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <nav class="navbar">
+
+    <div class="logo">
+        🌾 KrishiMithra AI
+    </div>
+
+    <div class="nav-links">
+        <a href="#dashboard">Dashboard</a>
+        <a href="#crop">Crop</a>
+        <a href="#climate">Weather</a>
+        <a href="#disease">Disease</a>
+    </div>
+
+</nav>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>KrishiMithra AI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<!-- ========================= -->
+<!-- HEADER -->
+<!-- ========================= -->
+<header>
+
+<div class="hero">
+
+<h1>🌾 KrishiMithra AI</h1>
+
+<h2>Smart Farming Powered by Artificial Intelligence</h2>
+
+<p>
+
+Helping farmers make better decisions through
+Crop Recommendation,
+Disease Detection,
+Weather Analysis,
+Yield Prediction
+and Market Intelligence.
+
+</p>
+
+<a href="#dashboard" class="hero-btn">
+
+🚀 Explore Features
+
+</a>
+
+</div>
+
+</header>
+
+<!-- ========================= -->
+<!-- LANGUAGE -->
+<!-- ========================= -->
+
+<div class="language-bar">
+
+    <label><b>🌐 Language:</b></label>
+
+    <select id="language" onchange="changeLanguage()">
+
+        <option value="en">English</option>
+        <option value="te">తెలుగు</option>
+        <option value="hi">हिन्दी</option>
+
+    </select>
+
+</div>
+
+<!-- ========================= -->
+<!-- STATS -->
+<!-- ========================= -->
+<section class="stats">
+
+<div class="stat-card">
+
+<h2>98%</h2>
+
+<p>Disease Detection Accuracy</p>
+
+</div>
+
+<div class="stat-card">
+
+<h2>24x7</h2>
+
+<p>AI Farming Assistant</p>
+
+</div>
+
+<div class="stat-card">
+
+<h2>6+</h2>
+
+<p>Smart AI Features</p>
+
+</div>
+
+<div class="stat-card">
+
+<h2>100%</h2>
+
+<p>Farmer Friendly</p>
+
+</div>
+
+</section>
+
+<div class="container">
+
+<!-- ========================= -->
+<!-- DASHBOARD -->
+<!-- ========================= -->
+<div class="dashboard" id="dashboard">
+
+    <div class="card" onclick="showSection('crop')">
+        <div style="font-size:55px;">🌱</div>
+        <h2>Crop Recommendation</h2>
+        <p>Find the best crop based on soil, season and water.</p>
+    </div>
+
+    <div class="card" onclick="showSection('climate')">
+        <div style="font-size:55px;">🌦</div>
+        <h2>Climate Intelligence</h2>
+        <p>Live weather for any city or village.</p>
+    </div>
+
+    <div class="card" onclick="showSection('advisor')">
+        <div style="font-size:55px;">🌿</div>
+        <h2>Cultivation Advisor</h2>
+        <p>AI guidance for every crop stage.</p>
+    </div>
+
+    <div class="card" onclick="showSection('disease')">
+        <div style="font-size:55px;">🍃</div>
+        <h2>Disease Detection</h2>
+        <p>Upload a leaf image for instant AI diagnosis.</p>
+    </div>
+
+    <div class="card" onclick="showSection('yield')">
+        <div style="font-size:55px;">🌾</div>
+        <h2>Yield Prediction</h2>
+        <p>Estimate crop production before harvest.</p>
+    </div>
+
+    <div class="card" onclick="showSection('market')">
+        <div style="font-size:55px;">💹</div>
+        <h2>Market Intelligence</h2>
+        <p>View the latest market prices and trends.</p>
+    </div>
+
+    <div class="card" onclick="showSection('profit')">
+        <div style="font-size:55px;">📈</div>
+        <h2>Profit Prediction</h2>
+        <p>Estimate income, expenses and expected profit.</p>
+    </div>
+
+</div>
+<!-- ========================= -->
+<!-- CROP RECOMMENDATION -->
+<!-- ========================= -->
+
+<div id="crop" class="section">
+
+    <button class="back-btn" onclick="goBack()">← Back</button>
+
+    <h2>🌱 Crop Recommendation</h2>
+
+    <select id="soil">
+        <option value="">Select Soil Type</option>
+        <option>Black Soil</option>
+        <option>Red Soil</option>
+        <option>Alluvial Soil</option>
+        <option>Laterite Soil</option>
+        <option>Sandy Soil</option>
+    </select>
+
+    <select id="season">
+        <option value="">Select Season</option>
+        <option>Kharif</option>
+        <option>Rabi</option>
+        <option>Summer</option>
+    </select>
+
+    <select id="water">
+        <option value="">Water Availability</option>
+        <option>Low</option>
+        <option>Medium</option>
+        <option>High</option>
+    </select>
+
+    <button onclick="recommendCrop()">
+        Recommend Crop
+    </button>
+
+    <div class="result" id="cropResult"></div>
+
+</div>
+
+<!-- ========================= -->
+<!-- CLIMATE -->
+<!-- ========================= -->
+
+<div id="climate" class="section">
+
+    <button class="back-btn" onclick="goBack()">← Back</button>
+
+    <h2>🌦 Climate Intelligence</h2>
+
+    <input
+          type="text"
+          id="district"
+          placeholder="Enter City / Village (e.g. Hyderabad, Kadapa, Mumbai)"
+          autocomplete="off">
+     <input
+          type="text"
+         id="district"
+         placeholder="Enter City / Village">
+
+<button type="button" onclick="getCurrentLocation()">
+📍 Use My Current Location
+</button>     
+
+    <button onclick="getClimate()">
+        Get Climate
+    </button>
+
+    <div class="result" id="climateResult"></div>
+
+</div>
+
+<!-- ========================= -->
+<!-- CULTIVATION ADVISOR -->
+<!-- ========================= -->
+
+<div id="advisor" class="section">
+
+    <button class="back-btn" onclick="goBack()">← Back</button>
+
+    <h2>🌿 Cultivation Advisor</h2>
+
+    <select id="advisorCrop">
+
+        <option value="">Select Crop</option>
+
+        <option>Rice</option>
+        <option>Groundnut</option>
+        <option>Cotton</option>
+        <option>Maize</option>
+
+    </select>
+
+    <select id="growthStage">
+
+        <option value="">Growth Stage</option>
+
+        <option>Seedling</option>
+        <option>Vegetative</option>
+        <option>Flowering</option>
+        <option>Harvest</option>
+
+    </select>
+
+    <button onclick="getAdvice()">
+        Get Advice
+    </button>
+
+    <div class="result" id="advisorResult"></div>
+
+</div>
+
+<!-- ========================= -->
+<!-- YIELD PREDICTION -->
+<!-- ========================= -->
+
+<div id="yield" class="section">
+
+    <button class="back-btn" onclick="goBack()">← Back</button>
+
+    <h2>🌾 Yield Prediction</h2>
+
+    <input
+        type="text"
+        id="cropName"
+        placeholder="Crop Name">
+
+    <select id="yieldSoil">
+
+        <option value="">Select Soil Type</option>
+
+        <option>Black Soil</option>
+        <option>Red Soil</option>
+        <option>Alluvial Soil</option>
+        <option>Laterite Soil</option>
+        <option>Sandy Soil</option>
+
+    </select>
+
+    <select id="yieldWater">
+
+        <option value="">Water Availability</option>
+
+        <option>Low</option>
+        <option>Medium</option>
+        <option>High</option>
+
+    </select>
+
+    <button onclick="predictYield()">
+
+        Predict Yield
+
+    </button>
+
+    <div class="result" id="yieldResult"></div>
+
+</div>
+<!-- ========================= -->
+<!-- MARKET INTELLIGENCE -->
+<!-- ========================= -->
+
+<div id="market" class="section">
+
+    <button class="back-btn" onclick="goBack()">← Back</button>
+
+    <h2>💰 Market Intelligence</h2>
+
+    <select id="marketCrop">
+
+        <option value="">Select Crop</option>
+
+        <option>Rice</option>
+        <option>Groundnut</option>
+        <option>Cotton</option>
+        <option>Maize</option>
+
+    </select>
+
+    <select id="marketDistrict">
+
+        <option value="">Select District</option>
+
+        <option>Anantapur</option>
+        <option>Chittoor</option>
+        <option>Kadapa</option>
+        <option>Kurnool</option>
+        <option>Nellore</option>
+
+    </select>
+
+    <button onclick="getMarketPrice()">
+        Get Market Price
+    </button>
+
+    <div class="result" id="marketResult"></div>
+
+</div>
+
+<!-- ========================= -->
+<!-- PROFIT PREDICTION -->
+<!-- ========================= -->
+
+<div id="profit" class="section">
+
+    <button class="back-btn" onclick="goBack()">← Back</button>
+
+    <h2>📈 Profit Prediction</h2>
+
+    <select id="profitCrop">
+
+        <option value="">Select Crop</option>
+
+        <option>Rice</option>
+        <option>Groundnut</option>
+        <option>Cotton</option>
+        <option>Maize</option>
+
+    </select>
+
+    <input
+        type="number"
+        id="landArea"
+        placeholder="Enter Land Area (Acres)">
+
+    <button onclick="calculateProfit()">
+
+        Calculate Profit
+
+    </button>
+
+    <div class="result" id="profitResult"></div>
+
+</div>
+
+<!-- ========================= -->
+<!-- DISEASE DETECTION -->
+<!-- ========================= -->
+
+<div id="disease" class="section">
+
+    <button class="back-btn" onclick="goBack()">← Back</button>
+
+    <h2>🍃 Disease Detection</h2>
+
+    <p>
+        Upload a clear image of a crop leaf to detect diseases.
+    </p>
+
+    <br>
+
+    <input
+        type="file"
+        id="leafImage"
+        accept="image/*"
+        onchange="previewLeaf(event)">
+
+    <br><br>
+
+    <img
+        id="previewImage"
+        src=""
+        alt="Leaf Preview"
+        style="
+            display:none;
+            width:260px;
+            max-width:100%;
+            border-radius:15px;
+            box-shadow:0 8px 20px rgba(0,0,0,.15);
+            margin:auto;
+        ">
+
+    <br><br>
+
+    <button onclick="detectDisease()">
+
+        🔍 Detect Disease
+
+    </button>
+
+    <div class="result" id="diseaseResult"></div>
+    <br><br>
+
+<button onclick="downloadReport()">
+
+📄 Download PDF Report
+
+</button>
+
+</div>
+<!-- ========================= -->
+<!-- FOOTER -->
+<!-- ========================= -->
+
+</div>
+
+<footer>
+
+<h3>🌾 KrishiMithra AI</h3>
+
+<br>
+
+<p>
+
+Built using ❤️ with
+
+Python • Flask • TensorFlow • HTML • CSS • JavaScript
+
+</p>
+
+<br>
+
+<p>
+
+© 2026 KrishiMithra AI
+
+</p>
+
+</footer>
+
+<!-- ========================= -->
+<!-- JAVASCRIPT -->
+<!-- ========================= -->
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+</body>
+
+</html>
