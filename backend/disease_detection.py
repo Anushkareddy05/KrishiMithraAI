@@ -18,7 +18,7 @@ CLASS_PATH = os.path.join(BASE_DIR, "models", "class_names.pkl")
 # Load Model
 # ---------------------------------
 
-model = load_model(MODEL_PATH)
+model = load_model(MODEL_PATH, compile=False)
 
 with open(CLASS_PATH, "rb") as f:
     class_names = pickle.load(f)
