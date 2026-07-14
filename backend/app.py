@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 import os
 import requests
-from disease_detection import predict_disease
+from backend.disease_detection import predict_disease
 
 app = Flask(__name__)
 
