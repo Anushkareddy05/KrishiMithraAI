@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 import os
 import requests
-from backend.disease_detection import predict_disease
 
 app = Flask(__name__)
 
@@ -53,115 +52,49 @@ def weather():
         weather = data["weather"][0]["main"]
         description = data["weather"][0]["description"].title()
 
-        # -------------------------
-        # AI Farming Advice
-        # -------------------------
-
         if weather.lower() == "rain":
-
             advice = "🌧 Rain is expected. Avoid pesticide spraying and ensure proper drainage."
-
         elif weather.lower() == "clear":
-
             advice = "☀ Good weather for irrigation and fertilizer application."
-
         elif weather.lower() == "clouds":
-
             advice = "☁ Good day for crop monitoring and field inspection."
-
         elif weather.lower() == "thunderstorm":
-
             advice = "⚠ Avoid field work until the weather improves."
-
         elif weather.lower() == "drizzle":
-
             advice = "🌦 Light rain expected. Delay spraying chemicals."
-
         elif weather.lower() == "mist":
-
             advice = "🌫 Watch for fungal diseases because of moisture."
-
         else:
-
             advice = "🌱 Weather is suitable for regular farming activities."
 
         return jsonify({
-
             "temperature": data["main"]["temp"],
-
             "humidity": data["main"]["humidity"],
-
             "condition": weather,
-
             "description": description,
-
             "wind": data["wind"]["speed"],
-
             "advice": advice
-
         })
 
     except Exception as e:
-
-        return jsonify({
-
-            "error": str(e)
-
-        })
+        return jsonify({"error": str(e)})
 
 
 # =====================================================
-# DISEASE DETECTION
+# DISEASE DETECTION (TEMPORARILY DISABLED)
 # =====================================================
 
 @app.route("/predict_disease", methods=["POST"])
 def disease():
-
-    try:
-
-        if "image" not in request.files:
-
-            return jsonify({
-
-                "error": "No image uploaded."
-
-            })
-
-        file = request.files["image"]
-
-        if file.filename == "":
-
-            return jsonify({
-
-                "error": "No image selected."
-
-            })
-
-        filepath = os.path.join(
-
-            app.config["UPLOAD_FOLDER"],
-
-            file.filename
-
-        )
-
-        file.save(filepath)
-
-        result = predict_disease(filepath)
-
-        return jsonify(result)
-
-    except Exception as e:
-
-        return jsonify({
-
-            "error": str(e)
-
-        })
+    return jsonify({
+        "success": False,
+        "message": "Disease Detection is temporarily disabled on the deployed version."
+    })
 
 
 # =====================================================
 # RUN
 # =====================================================
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
